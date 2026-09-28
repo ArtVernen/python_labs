@@ -45,6 +45,12 @@ def min_max(nums: list[float | int]) -> tuple[float | int, float | int]:
     return mn, mx
 ```
 
+### Тестирование `min_max`
+
+![Тестирование min_max](../../images/lab02/min_max.png)
+
+---
+
 ### `unique_sorted`
 
 Удаляет повторяющиеся элементы и сортирует список по возрастанию без `sorted()` и `.sort()`.
@@ -69,6 +75,12 @@ def unique_sorted(nums: list[float | int]) -> list[float | int]:
     return a
 ```
 
+### Тестирование `unique_sorted`
+
+![Тестирование unique_sorted](../../images/lab02/unique_sorted.png)
+
+---
+
 ### `flatten`
 
 Объединяет списки и кортежи в один список.
@@ -88,9 +100,9 @@ def flatten(mat: list[list | tuple]) -> list:
     return a
 ```
 
-### Тестирование
+### Тестирование `flatten`
 
-![Тестирование 1 задания](../../images/lab02/arrays.png)
+![Тестирование flatten](../../images/lab02/flatten.png)
 
 ---
 
@@ -112,6 +124,12 @@ def check_matrix(mat):
         if len(row) != n:
             raise ValueError("Матрица рваная")
 ```
+
+### Тестирование `check_matrix`
+
+![Тестирование check_matrix](../../images/lab02/check_matrix.png)
+
+---
 
 ### `transpose`
 
@@ -138,6 +156,12 @@ def transpose(mat: list[list[float | int]]) -> list[list]:
     return res
 ```
 
+### Тестирование `transpose`
+
+![Тестирование transpose](../../images/lab02/transpose.png)
+
+---
+
 ### `row_sums`
 
 Считает сумму элементов каждой строки.
@@ -159,6 +183,12 @@ def row_sums(mat: list[list[float | int]]) -> list[float]:
 
     return res
 ```
+
+### Тестирование `row_sums`
+
+![Тестирование row_sums](../../images/lab02/row_sums.png)
+
+---
 
 ### `col_sums`
 
@@ -185,9 +215,9 @@ def col_sums(mat: list[list[float | int]]) -> list[float]:
     return res
 ```
 
-### Тестирование
+### Тестирование `col_sums`
 
-![Тестирование 2 задания](../../images/lab02/matrix.png)
+![Тестирование col_sums](../../images/lab02/col_sums.png)
 
 ---
 
@@ -242,7 +272,6 @@ def format_record(rec: tuple[str, str, float]) -> str:
     return f"{surname} {initials}, гр. {group}, GPA {gpa:.2f}"
 ```
 
-### Тестирование
+### Тестирование `format_record`
 
-![Тестирование 3 задания](../../images/lab02/tuples.png)
-
+![Тестирование format_record](../../images/lab02/format_record.png)
