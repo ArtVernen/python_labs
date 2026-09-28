@@ -7,52 +7,10 @@
 
 ---
 
+Тут будут лабы)
 
-# Лабораторная работа №1
+# Лабы
 
----
+[Лаба 1](https://github.com/ArtVernen/python_labs/blob/main/src/lab01/README.md)
 
-## 1 Задание
-
-
-![Результат выполнения задания 1](images/lab01/01_greeting.png)
-
----
-
-## 2 Задание
-
-
-
-![Результат выполнения задания 2](images/lab01/02_sum_avg.png)
-
----
-
-## 3 Задание
-
-
-
-![Результат выполнения задания 3](images/lab01/03_discount_vat.png)
-
----
-
-## 4 Задание
-
-
-
-![Результат выполнения задания 4](images/lab01/04_minutes_to_hhmm.png)
-
----
-
-## 5 Задание
-
-
-
-![Результат выполнения задания 5](images/lab01/05_initials_and_len.png)
-
----
-
-## 6 Задание
-
-
-
-![Результат выполнения задания 6](images/lab01/task_06.png)
+[Лаба 2](https://github.com/TiM-SyStEm/python_labs/blob/main/src/lab02/README.md)
