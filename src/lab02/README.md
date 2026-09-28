@@ -1,4 +1,16 @@
+# python_labs
+
+# Хохлов Никита
+
+---
+
+# Группа БИВТ-26-6-1
+
+---
+
 # Лабораторная работа №2
+
+---
 
 В работе используются списки, кортежи и матрицы.
 
@@ -9,7 +21,7 @@
 
 ---
 
-## 1. Работа со списками — `arrays.py`
+## 1 Задание
 
 ### `min_max`
 
@@ -78,11 +90,11 @@ def flatten(mat: list[list | tuple]) -> list:
 
 ### Тестирование
 
-![Тестирование arrays.py](../../images/lab02/arrays.png)
+![Тестирование 1 задания](../../images/lab02/arrays.png)
 
 ---
 
-## 2. Работа с матрицами — `matrix.py`
+## 2 Задание
 
 ### `check_matrix`
 
@@ -175,11 +187,11 @@ def col_sums(mat: list[list[float | int]]) -> list[float]:
 
 ### Тестирование
 
-![Тестирование matrix.py](../../images/lab02/matrix.png)
+![Тестирование 2 задания](../../images/lab02/matrix.png)
 
 ---
 
-## 3. Работа с кортежами — `tuples.py`
+## 3 Задание
 
 ### `format_record`
 
@@ -232,5 +244,5 @@ def format_record(rec: tuple[str, str, float]) -> str:
 
 ### Тестирование
 
-![Тестирование tuples.py](../../images/lab02/tuples.png)
+![Тестирование 3 задания](../../images/lab02/tuples.png)
 
