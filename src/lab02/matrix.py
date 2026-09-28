@@ -50,8 +50,8 @@ def col_sums(mat: list[list[float | int]]) -> list[float]:
 
 #тест кейс
 if __name__ == "__main__":
-    print("col_sums")
-    print("[[1, 2, 3], [4, 5, 6]] →", col_sums([[1, 2, 3], [4, 5, 6]]))
-    print("[[-1, 1], [10, -10]] →", col_sums([[-1, 1], [10, -10]]))
-    print("[[0, 0], [0, 0]] →", col_sums([[0, 0], [0, 0]]))
-    print(col_sums([[1, 2], [3]]))
+    print("check_matrix")
+    print(check_matrix([[1, 2], [3, 4]]))
+    print(check_matrix([[1, 2, 3], [4, 5, 6]]))
+    print(check_matrix([]))
+    print(check_matrix([[1, 2], [3]]))
