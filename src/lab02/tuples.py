@@ -35,28 +35,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
 #тест кейс
 if __name__ == "__main__":
     print("format_record")
-    print('("Иванов Иван Иванович", "BIVT-25", 4.6) →', format_record(("Иванов Иван Иванович", "BIVT-25", 4.6)))
-    print('("Петров Пётр", "IKBO-12", 5.0) →', format_record(("Петров Пётр", "IKBO-12", 5.0)))
-    print('("Петров Пётр Петрович", "IKBO-12", 5.0) →', format_record(("Петров Пётр Петрович", "IKBO-12", 5.0)))
-    print('("  сидорова  анна   сергеевна ", "ABB-01", 3.999) →', format_record(("  сидорова  анна   сергеевна ", "ABB-01", 3.999)))
-    try:
-        print(
-            '("", "BIVT-25", 4.5) →',
-            format_record(("", "BIVT-25", 4.5))
-        )
-    except ValueError as e:
-        print('("", "BIVT-25", 4.5) →', e)
-    try:
-        print(
-            '("Иванов Иван", "", 4.5) →',
-            format_record(("Иванов Иван", "", 4.5))
-        )
-    except ValueError as e:
-        print('("Иванов Иван", "", 4.5) →', e)
-    try:
-        print(
-            '("Иванов Иван", "BIVT-25", "4.5") →',
-            format_record(("Иванов Иван", "BIVT-25", "4.5"))
-        )
-    except TypeError as e:
-        print('("Иванов Иван", "BIVT-25", "4.5") →', e)
+    print(format_record(("Иванов Иван Иванович", "BIVT-25", 4.6)))
+    print(format_record(("Петров Пётр", "IKBO-12", 5.0)))
+    print(format_record(("  сидорова  анна   сергеевна ", "ABB-01", 3.999)))
+    print(format_record(("", "BIVT-25", 4.5)))
