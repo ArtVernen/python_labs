@@ -15,7 +15,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
     parts = fio.split()
     group = group.strip()
 
-    if len(parts) < 2:
+    if len(parts) != 2 and len(parts) != 3:
         raise ValueError("Неверное ФИО")
     if group == "":
         raise ValueError("Группа пустая")
