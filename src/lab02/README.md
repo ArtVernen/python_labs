@@ -238,9 +238,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
     if len(rec) != 3:
         raise ValueError("В записи должно быть 3 элемента")
 
-    fio = rec[0]
-    group = rec[1]
-    gpa = rec[2]
+    fio, group, gpa = rec
 
     if type(fio) != str or type(group) != str:
         raise TypeError("ФИО и группа должны быть строками")
