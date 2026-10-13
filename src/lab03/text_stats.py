@@ -7,8 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from lib.text import normalize, tokenize, count_freq, top_n
 
 
-TABLE_MODE = False  # True — вывести дополнительную таблицу ★
-
+TABLE_MODE = True  
 
 def main() -> None:
     text = input()
