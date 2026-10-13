@@ -7,9 +7,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from lib.text import normalize, tokenize, count_freq, top_n
 
 
-TABLE_MODE = True  
+TABLE_MODE = False
 
-def main() -> None:
+
+def main():
     text = input()
     words = tokenize(normalize(text))
     freq = count_freq(words)
