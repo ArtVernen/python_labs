@@ -35,8 +35,10 @@ def write_csv(rows: list[tuple | list], path: str | Path,
 
 
 if __name__ == "__main__":
-    path = sys.argv[1] if len(sys.argv) > 1 else "data/lab04/input.txt"
-
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+    else:
+        path = "data/lab04/input.txt"
     text = read_text(path)
 
     if text:
