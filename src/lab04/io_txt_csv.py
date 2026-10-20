@@ -5,7 +5,8 @@ from pathlib import Path
 
 def read_text(path: str | Path, encoding: str = "utf-8") -> str:
     """Читает текст из файла."""
-    return Path(path).read_text(encoding=encoding)
+    p = Path(path)
+    return p.read_text(encoding=encoding)
 
 
 def write_csv(rows: list[tuple | list], path: str | Path,
@@ -25,12 +26,12 @@ def write_csv(rows: list[tuple | list], path: str | Path,
     file.parent.mkdir(parents=True, exist_ok=True)
 
     with file.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        w = csv.writer(f)
 
         if header is not None:
-            writer.writerow(header)
+            w.writerow(header)
 
-        writer.writerows(rows)
+        w.writerows(rows)
 
 
 if __name__ == "__main__":
