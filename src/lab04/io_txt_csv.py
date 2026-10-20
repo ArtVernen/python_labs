@@ -1,42 +1,49 @@
-
 import csv
+import sys
 from pathlib import Path
 
 
 def read_text(path: str | Path, encoding: str = "utf-8") -> str:
-    """Читает содержимое текстового файла."""
+    """Читает текст из файла."""
     return Path(path).read_text(encoding=encoding)
 
 
-def ensure_parent_dir(path: str | Path) -> None:
-    """Создаёт родительские папки для файла, если их нет."""
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
+def write_csv(rows: list[tuple | list], path: str | Path,
+              header: tuple[str, ...] | None = None) -> None:
+    """Записывает данные в CSV."""
+    if rows:
+        length = len(rows[0])
 
+        for row in rows:
+            if len(row) != length:
+                raise ValueError("Строки разной длины")
 
-def write_csv(
-    rows: list[tuple | list],
-    path: str | Path,
-    header: tuple[str, ...] | None = None
-) -> None:
-    """Записывает CSV и проверяет одинаковое количество столбцов."""
+        if header is not None and len(header) != length:
+            raise ValueError("Длина заголовка не совпадает с длиной строк")
 
-    if header is not None:
-        width = len(header)
-    elif rows:
-        width = len(rows[0])
-    else:
-        width = None
+    file = Path(path)
+    file.parent.mkdir(parents=True, exist_ok=True)
 
-    for row in rows:
-        if width is not None and len(row) != width:
-            raise ValueError("Все строки должны иметь одинаковое число столбцов")
-
-    ensure_parent_dir(path)
-
-    with Path(path).open("w", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
+    with file.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
 
         if header is not None:
             writer.writerow(header)
 
         writer.writerows(rows)
+
+
+if __name__ == "__main__":
+    path = sys.argv[1] if len(sys.argv) > 1 else "data/lab04/input.txt"
+
+    text = read_text(path)
+
+    if text:
+        print(text)
+
+    if len(sys.argv) == 1:
+        write_csv(
+            [("привет", 2), ("мир", 1)],
+            "data/lab04/check.csv",
+            ("word", "count")
+        )

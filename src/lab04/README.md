@@ -1,4 +1,3 @@
-
 # python_labs
 
 # Хохлов Никита
@@ -13,9 +12,9 @@
 
 ---
 
-В работе используются текстовые файлы TXT, таблицы CSV и функции обработки текста из третьей лабораторной.
+В работе используются текстовые файлы TXT, таблицы CSV и функции обработки текста из лабораторной работы №3.
 
-Реализованы чтение текстовых файлов, запись CSV-отчётов и обработка нескольких файлов.
+Программа читает текстовый файл, подсчитывает частоту слов и сохраняет результат в CSV.
 
 ---
 
@@ -23,15 +22,19 @@
 
 ### `read_text`
 
-Читает содержимое текстового файла и возвращает строку.
+Читает текст из TXT-файла и возвращает его содержимое в виде строки.
 
-По умолчанию используется кодировка UTF-8. Также поддерживается чтение файлов в других кодировках.
+По умолчанию используется кодировка UTF-8.
 
 ```python
 def read_text(path: str | Path, encoding: str = "utf-8") -> str:
-    """Читает содержимое текстового файла."""
+    """Читает текст из файла."""
     return Path(path).read_text(encoding=encoding)
 ```
+
+### Исходный файл `input.txt`
+
+![Файл input.txt](../../images/lab04/input.png)
 
 ### Тестирование `read_text`
 
@@ -39,35 +42,47 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
 
 ---
 
+### Проверка отсутствующего файла
+
+Если файл не существует, возникает `FileNotFoundError`.
+
+![Отсутствующий файл](../../images/lab04/errors.png)
+
+---
+
+### Проверка пустого файла
+
+Если файл пустой, функция возвращает пустую строку.
+
+![Пустой файл](../../images/lab04/empty_read.png)
+
+---
+
 ### `write_csv`
 
-Записывает список строк в CSV-файл.
+Записывает данные в CSV-файл.
 
-При необходимости добавляет заголовок и проверяет, чтобы все строки содержали одинаковое количество столбцов.
+Проверяет одинаковую длину строк. Если длина отличается, вызывается `ValueError`.
 
 ```python
-def write_csv(
-    rows: list[tuple | list],
-    path: str | Path,
-    header: tuple[str, ...] | None = None
-) -> None:
-    """Записывает CSV и проверяет одинаковое количество столбцов."""
+def write_csv(rows: list[tuple | list], path: str | Path,
+              header: tuple[str, ...] | None = None) -> None:
+    """Записывает данные в CSV."""
+    if rows:
+        length = len(rows[0])
 
-    if header is not None:
-        width = len(header)
-    elif rows:
-        width = len(rows[0])
-    else:
-        width = None
+        for row in rows:
+            if len(row) != length:
+                raise ValueError("Строки разной длины")
 
-    for row in rows:
-        if width is not None and len(row) != width:
-            raise ValueError("Все строки должны иметь одинаковое число столбцов")
+        if header is not None and len(header) != length:
+            raise ValueError("Длина заголовка не совпадает с длиной строк")
 
-    ensure_parent_dir(path)
+    file = Path(path)
+    file.parent.mkdir(parents=True, exist_ok=True)
 
-    with Path(path).open("w", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
+    with file.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
 
         if header is not None:
             writer.writerow(header)
@@ -77,177 +92,71 @@ def write_csv(
 
 ### Тестирование `write_csv`
 
-![Тестирование write_csv](../../images/lab04/write_csv.png)
+В результате работы создаётся файл `check.csv`.
 
----
-
-### `ensure_parent_dir` ★
-
-Создаёт родительские папки для указанного пути, если они отсутствуют.
-
-Повторный вызов функции не вызывает ошибку, если папки уже существуют.
-
-```python
-def ensure_parent_dir(path: str | Path) -> None:
-    """Создаёт родительские папки для файла, если их нет."""
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-```
-
-### Тестирование `ensure_parent_dir`
-
-![Тестирование ensure_parent_dir](../../images/lab04/ensure_parent_dir.png)
+![Файл check.csv](../../images/lab04/write_csv.png)
 
 ---
 
 ## 2 Задание
 
-### `text_report`
+### `main`
 
-Читает текст из TXT-файла, нормализует его, разбивает на слова и подсчитывает частоты.
+Основная функция программы.
 
-Результаты сохраняются в CSV-файл, а в консоль выводятся количество всех слов, уникальных слов и топ-5.
+Читает TXT-файл, обрабатывает слова с помощью функций из лабораторной работы №3, подсчитывает их частоту и сохраняет CSV-отчёт.
+
+Выводит общее количество слов, количество уникальных слов и топ-5.
 
 ```python
-def main() -> None:
-    files = STAR_FILES if STAR_MODE else [INPUT_FILE]
+def main():
+    """Считает частоту слов и сохраняет CSV-отчёт."""
+    path = sys.argv[1] if len(sys.argv) > 1 else "data/lab04/input.txt"
+    encoding = sys.argv[2] if len(sys.argv) > 2 else "utf-8"
 
-    total_freq = {}
-    per_file_rows = []
-    total_words = 0
+    text = read_text(path, encoding)
 
-    for path in files:
-        text = read_text(path, encoding=ENCODING)
-        words = tokenize(normalize(text))
-        freq = count_freq(words)
+    words = tokenize(normalize(text))
+    freq = count_freq(words)
 
-        total_words += len(words)
+    rows = sorted(freq.items(), key=lambda x: (-x[1], x[0]))
 
-        for word, count in freq.items():
-            total_freq[word] = total_freq.get(word, 0) + count
-            per_file_rows.append((path.name, word, count))
+    write_csv(rows, "data/lab04/report.csv", ("word", "count"))
 
-    if STAR_MODE:
-        per_file_rows.sort(
-            key=lambda row: (row[0], -row[2], row[1])
-        )
-
-        write_csv(
-            per_file_rows,
-            ROOT / "data" / "report_per_file.csv",
-            header=("file", "word", "count")
-        )
-
-        write_csv(
-            top_n(total_freq, len(total_freq)),
-            ROOT / "data" / "report_total.csv",
-            header=("word", "count")
-        )
-
-    else:
-        write_csv(
-            top_n(total_freq, len(total_freq)),
-            ROOT / "data" / "report.csv",
-            header=("word", "count")
-        )
-
-    print("Всего слов:", total_words)
-    print("Уникальных слов:", len(total_freq))
+    print(f"Всего слов: {len(words)}")
+    print(f"Уникальных слов: {len(freq)}")
     print("Топ-5:")
 
-    for word, count in top_n(total_freq, 5):
-        print(f"{word}:{count}")
-
-    if TABLE_MODE:
-        rows = top_n(total_freq, len(total_freq))
-
-        width = max(
-            [len("слово")] + [len(word) for word, count in rows]
-        )
-
-        print(f"{'слово':<{width}} | частота")
-        print("-" * (width + 10))
-
-        for word, count in rows:
-            print(f"{word:<{width}} | {count}")
+    for word, count in top_n(freq, 5):
+        print(f"{word}: {count}")
 ```
 
-### Тестирование `text_report`
+### Тестирование `main`
 
-![Тестирование text_report](../../images/lab04/text_report.png)
+![Тестирование main](../../images/lab04/main.png)
 
 ---
 
-### Задание со звёздочкой ★
+### Проверка CSV-отчёта
 
-Реализована обработка нескольких текстовых файлов.
+Программа создаёт файл `report.csv`, содержащий слова и количество их повторений.
 
-Для включения используется переменная `STAR_MODE = True`.
-
-Программа формирует два CSV-отчёта:
-
-- `report_per_file.csv` — частоты слов отдельно для каждого файла;
-- `report_total.csv` — суммарные частоты слов по всем файлам.
-
-```python
-STAR_MODE = True
-
-STAR_FILES = [
-    ROOT / "data" / "a.txt",
-    ROOT / "data" / "b.txt"
-]
-```
-
-Сортировка результатов для отдельных файлов:
-
-```python
-per_file_rows.sort(
-    key=lambda row: (row[0], -row[2], row[1])
-)
-```
-
-Запись отчётов:
-
-```python
-write_csv(
-    per_file_rows,
-    ROOT / "data" / "report_per_file.csv",
-    header=("file", "word", "count")
-)
-
-write_csv(
-    top_n(total_freq, len(total_freq)),
-    ROOT / "data" / "report_total.csv",
-    header=("word", "count")
-)
-```
-
-### Тестирование обработки нескольких файлов ★
-
-![Тестирование нескольких файлов](../../images/lab04/multi_files.png)
+![Файл report.csv](../../images/lab04/report.png)
 
 ---
 
-### Табличный вывод ★
+### Проверка пустого файла
 
-Дополнительно реализован вывод частот слов в виде таблицы с выравниванием столбцов.
+Если входной TXT-файл пустой, количество слов равно нулю. CSV содержит только заголовок.
 
-Для включения используется переменная `TABLE_MODE = True`.
+![Проверка пустого файла](../../images/lab04/empty.png)
 
-```python
-if TABLE_MODE:
-    rows = top_n(total_freq, len(total_freq))
+---
 
-    width = max(
-        [len("слово")] + [len(word) for word, count in rows]
-    )
+### Проверка другой кодировки
 
-    print(f"{'слово':<{width}} | частота")
-    print("-" * (width + 10))
+Программа поддерживает чтение файлов в другой кодировке, например CP1251.
 
-    for word, count in rows:
-        print(f"{word:<{width}} | {count}")
-```
+![Проверка кодировки](../../images/lab04/encoding.png)
 
-### Тестирование табличного вывода ★
-
-![Тестирование таблицы](../../images/lab04/table.png)
+---
