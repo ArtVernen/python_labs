@@ -25,7 +25,7 @@ def write_csv(rows: list[tuple | list], path: str | Path,
     file = Path(path)
     file.parent.mkdir(parents=True, exist_ok=True)
 
-    with file.open("w", newline="", encoding="utf-8") as f:
+    with file.open("w", newline="", encoding="utf-8") as f: 
         w = csv.writer(f)
 
         if header is not None:
