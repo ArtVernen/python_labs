@@ -56,6 +56,7 @@ python -m src.lab04.text_report data/lab04/input_cp1251.txt cp1251
 
 Для передачи пути и кодировки используется `sys.argv`.
 
+- `sys.argv[0]` — путь к запускаемому скрипту.
 - `sys.argv[1]` — путь к входному файлу.
 - `sys.argv[2]` — кодировка файла.
 
