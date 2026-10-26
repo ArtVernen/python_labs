@@ -18,3 +18,5 @@
 [Лаба 3](https://github.com/ArtVernen/python_labs/blob/main/src/lab03/README.md)
 
 [Лаба 4](https://github.com/ArtVernen/python_labs/blob/main/src/lab04/README.md)
+
+[Лаба 5](https://github.com/ArtVernen/python_labs/blob/main/src/lab05/README.md)
