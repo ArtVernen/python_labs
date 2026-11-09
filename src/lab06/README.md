@@ -36,7 +36,7 @@ python -m src.lab06.cli_text cat --input data/samples/people.csv -n
 По умолчанию выводится 5 самых частых слов.
 
 ```bash
-python -m src.lab06.cli_text stats --input data/samples/lab06_words.txt
+python -m src.lab06.cli_text stats --input data/samples/sample.txt
 ```
 
 ![Статистика top 5](../../images/lab06/stats_top5.png)
@@ -44,7 +44,7 @@ python -m src.lab06.cli_text stats --input data/samples/lab06_words.txt
 **Тест 4. Статистика с top 3**
 
 ```bash
-python -m src.lab06.cli_text stats --input data/samples/lab06_words.txt --top 3
+python -m src.lab06.cli_text stats --input data/samples/sample.txt --top 3
 ```
 
 ![Статистика top 3](../../images/lab06/stats_top3.png)
@@ -66,7 +66,7 @@ python -m src.lab06.cli_text cat --input data/samples/missing.txt
 Значение `--top` должно быть больше нуля.
 
 ```bash
-python -m src.lab06.cli_text stats --input data/samples/lab06_words.txt --top -3
+python -m src.lab06.cli_text stats --input data/samples/sample.txt --top -3
 ```
 
 ![Ошибка top](../../images/lab06/cli_text_top_error.png)
