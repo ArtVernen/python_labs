@@ -22,3 +22,5 @@
 [Лаба 5](https://github.com/ArtVernen/python_labs/blob/main/src/lab05/README.md)
 
 [Лаба 6](https://github.com/ArtVernen/python_labs/blob/main/src/lab06/README.md)
+
+[Лаба 7](https://github.com/ArtVernen/python_labs/blob/main/src/lab07/README.md)

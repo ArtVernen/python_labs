@@ -1,0 +1,1 @@
+ for number, line in enumerate(file, 1):
